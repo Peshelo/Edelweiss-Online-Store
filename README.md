@@ -1,6 +1,6 @@
 # An Online Store for a media and advertising company.
 
-##Technologies
+## Technologies
 The frontend is made with Nuxt JS.
 The backend is made with Springboot.
 It accepts payment via paypal.
