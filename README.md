@@ -1,4 +1,9 @@
-# Nuxt 3 Minimal Starter
+# An Online Store for a media and advertising company.
+
+##Technologies
+The frontend is made with Nuxt JS.
+The backend is made with Springboot.
+It accepts payment via paypal.
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
