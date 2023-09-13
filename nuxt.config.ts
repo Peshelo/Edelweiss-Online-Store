@@ -10,6 +10,7 @@ export default defineNuxtConfig({
     ['@nuxtjs/google-fonts', {
       families: {
         Roboto: true,
+        Montserrat: true,
         Inter: [400, 700],
          'Josefin+Sans': true,
         Lato: [100, 300],
@@ -20,6 +21,7 @@ export default defineNuxtConfig({
       }
   }]
   ],
+  css:['@/assets/css/main.css'],
   runtimeConfig: {
     public: {
       baseURL: process.env.BASE_URL || 'http://localhost:8080/',
