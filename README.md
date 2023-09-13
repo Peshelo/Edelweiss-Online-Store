@@ -5,6 +5,17 @@ The frontend is made with Nuxt JS.
 The backend is made with Springboot.
 It accepts payment via paypal.
 
+## Screenshots
+### Landing page
+![Screenshot1](https://github.com/Peshelo/Edelweiss-Online-Store/raw/master/screenshots/scrn.png)
+
+### Cart
+![Screenshot1](https://github.com/Peshelo/Edelweiss-Online-Store/raw/master/screenshots/scrn1.png)
+
+### Product Page
+![Screenshot1](https://github.com/Peshelo/Edelweiss-Online-Store/raw/master/screenshots/scrn2.png)
+
+
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
