@@ -1,10 +1,21 @@
 <template>
   <div class="fixed overflow-y-auto overflow-x-hidden bg-gray-100 h-[100vh] w-full max-md:relative">
     <!-- Nav Bar -->
-    <div class="mx-auto bg-white sticky">
+    <div  class="sticka md:hidden shadow-md bg-white w-screen p-4 h-fit">
+      <NuxtLink to="/store/shop/" class="w-fit h-fit">
+        <img
+          src="/edelweiss-full-colour.png"
+          width="100"
+          height="100"
+          class="object-fit"
+        />
+      </NuxtLink>
+    </div>
+    <div class="mx-auto bg-white">
     <div
-      class="w-full border-b border-gray-100 px-10 py-5 max-md:p-0 flex flex-row justify-between"
+      class="w-full max-md:shadow-2xl max-md:z-50 p-3 bg-white max-md:fixed max-md:bottom-0 max-md:left-0 right-0 border-b border-gray-100 px-10 max-md:p-0 flex flex-row justify-between"
     >
+   
       <NuxtLink to="/store/" class="min-w-[140px] max-md:w-[20px] max-md:p-4">
         <img
           src="/edelweiss-full-colour.png"
@@ -56,18 +67,18 @@
         <Icon name="mdi:menu" size="30" />
       </div>
       <ul
-        class="max-md:absolute max-md:bottom-1 bg-white max-md:border-t-2 border-gray-100 max-md:p-2 max-md:w-full flex flex-row gap-4 items-center max-md:justify-between max-md:px-[100px]"
+        class="max-md:absolute max-md:bottom-1 bg-white max-md:border-t-2 border-gray-200 max-md:p-2 max-md:w-full flex flex-row gap-4 items-center max-md:justify-center max-md:gap-x-12 max-md:px-[100px]"
       >
         <li
           class="cursor-pointer text-gray-600 hover:text-red-500 duration-150"
         >
-          <NuxtLink
+          <NuxtLink @click.prevent="showCart =!showCart"
             class="flex cursor-pointer flex-col justify-center items-center"
           >
             <div class="relative">
               <label
                 class="absolute -top-1 -right-1 rounded-full text-[10px] bg-yellow-300 px-[4px]"
-                >{{ cartItemCounnt }}</label
+                >{{ cartItemCount }}</label
               >
               <Icon name="material-symbols:shopping-bag-outline" size="24" />
             </div>
@@ -106,8 +117,6 @@
                 <li class="p-2 text-sm border-b border-gray-300 bg-red-500 text-white rounded my-2 text-center hover:font-bold duration-150 cursor-pointer">Register</li>
                 <li class="py-1 text-sm text-black my-2 text-center hover:font-bold duration-150 cursor- text-xs">Already have an account? <a class="text-red-500">Login</a></li>
 
-
-
               </ul>
           </div>
         </li>
@@ -124,19 +133,13 @@
             <div id="categories">
                 <h3 class="mb-2">Categories</h3>
             <ul class="w-full">
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">T-shirts</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Shoes</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Coporate Wear</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Banners</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
+                <li @mouseover="currentCategory = category.categoryDescription" v-for="(category,index) in categories" :key="category.id" class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">{{ category.categoryName }}</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
             </ul>
             </div>
             <div id="categories">
                 <h3 class="mb-2">Sub Categories</h3>
             <ul class="w-full">
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">T-shirts</NuxtLink></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Shoes</NuxtLink></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Coporate Wear</NuxtLink></li>
-                <li class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">Banners</NuxtLink></li>
+                <li class="w-full flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">{{ currentCategory }}</NuxtLink></li>
             </ul>
             </div>
             
@@ -162,15 +165,37 @@
     </div> -->
 
     <slot />
+    <div @click.self="showCart = !showCart" v-if="showCart" class="fixed backdrop-brightness-50 backdrop-blur-sm top-0 w-screen h-screen">
+      <!-- {{ showCart }} -->
+    <LazyStoreCart/>
+    </div>
   </div>
   <StoreFooter/>
   </div>
 </template>
 
 <script setup>
-const cartItemCounnt = ref(2);
+let cartItemCount = ref(0);
 const searchParam = ref("");
 const showAccount = ref(false)
 const showSearch = ref(false);
 const showCategories = ref(false)
+const currentCategory = ref("")
+const showCart = ref(false)
+// cartItemCount = JSON.parse(localStorage.getItem('cart')).length
+
+
+const {data: categories,pending,error} = await useLazyFetch('http://localhost:8080/categories/all')
 </script>
+
+<style>
+.sticka{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  /* position: absolute;
+  bottom: 0; */  
+}
+</style>
+

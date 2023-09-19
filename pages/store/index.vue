@@ -6,26 +6,16 @@
       <div class="products">
         <h1 class="mt-20 max-sm:mt-10 mb-4">Top Products</h1>
         <div id="productsList" class="grid grid-cols-4 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-3 p-2">
+                <!-- <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
-                <LazyStoreProductCard/>
-                <LazyStoreProductCard/>
+                <LazyStoreProductCard/> -->
         </div>
       </div>
-      <div class="products">
-        <h1 class="mt-20 max-sm:mt-10 mb-4">Weekly trends</h1>
-        <div id="productsList" class="flex flex-row max-w-full overflow-x-auto gap-4 max-md:grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-3 p-2">
-                <LazyStoreProductCard/>
-                <LazyStoreProductCard/>
-                <LazyStoreProductCard/>
-                <LazyStoreProductCard/>
-        </div>
-      </div>
-
     <div>
         <h1 class="mt-20 max-sm:mt-10 mb-4">Services To Help You Shop</h1>
         <div class="grid grid-cols-3 gap-6">
@@ -50,13 +40,12 @@
                     <h2 class="text-4xl mb-5">Home Delivery Options</h2>
                     <p class="text-lg text-gray-500">Updates on safe Shopping our Stores</p>
                 </div>
-               
                 <img src="https://cometdelivery.com/assets/img/home-delivery.jpg" class="object-cover h-[300px] w-full" loading="lazy" alt="family">
             </div>
         </div>
     </div>
     </div>
-
+   
   </StoreMainLayout>
 </template>
 
