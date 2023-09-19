@@ -3,12 +3,12 @@
         <h1>Cart</h1>
         <p v-if="!cart || cart.length < 1">Cart is empty</p>
         <ul v-else class="my-5 p-1 h-4/5 overflow-x-hidden overflow-y-auto">
-            <li class="flex border-b py-2 flex-row gap-x-2 justify-between items-center" v-for="(product,index) in cart" :key="product.productId">
-                <img :src="product.defaultImageUrl" class="w-[50px] h-[50px] object-cover" alt="product">
-                <label>{{ product.productName }}</label>
-                <!-- <label class="w-fit">X {{ product.variants }}</label> -->
-                <label><b>$24</b></label>
-                <button @click="removeItem(product.productId)" class="text-red-400 hover:text-red-500 duration-150"><Icon name="material-symbols:delete-outline" size="17"/></button>
+            <li class="flex border-b py-2 flex-row gap-x-2 justify-between items-center" v-for="(item,index) in cart" :key="item.id">
+                <!-- <img :src="product.defaultImageUrl" class="w-[50px] h-[50px] object-cover" alt="product"> -->
+                <label>{{ item.productVariant.variantName }}</label>
+                <label class="w-fit">X {{ item.quantity }}</label>
+                <label><b>${{ item.totalPrice }}</b></label>
+                <button @click="removeItem(item.id)" class="text-red-400 hover:text-red-500 duration-150"><Icon name="material-symbols:delete-outline" size="17"/></button>
             </li>
         </ul>
         <div class="absolute max-md:bottom-16 flex flex-col gap-y-2 bg-white w-[400px] max-md:w-[320px] justify-center border-t py-2 bottom-2">
@@ -23,16 +23,31 @@
 <script setup>
 
 let cart = ref([]);
-cart.value = JSON.parse(localStorage.getItem('cart')) || [];
-console.log(cart.value)
-function removeItem(id){
-    cart.value.forEach((product,index) => {
-        if(id == product.productId){
-            cart.value.splice(index,1)
-        }
-    });
-    localStorage.setItem('cart',JSON.stringify(cart.value))
+let loading = ref(false)
+async function fetchCart(){
+    loading.value = true
+    const cartId = localStorage.getItem('cartId')
+    await fetch(`http://localhost:8080/cart/${cartId}`)
+    .then(response=>response.json())
+    .then(data=>{
+        cart.value = data.lineItems
+    })
+    .finally(loading.value = false);
 }
+fetchCart();
+
+// cart.value = JSON.parse(localStorage.getItem('cart')) || [];
+console.log(cart.value)
+
+// Using localStorage
+// function removeItem(id){
+//     cart.value.forEach((product,index) => {
+//         if(id == product.productId){
+//             cart.value.splice(index,1)
+//         }
+//     });
+//     localStorage.setItem('cart',JSON.stringify(cart.value))
+// }
 
 </script>
 

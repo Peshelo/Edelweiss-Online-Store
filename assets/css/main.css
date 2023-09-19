@@ -25,3 +25,9 @@ a:hover{
 h3{
     @apply text-lg font-semibold
 }
+th{
+    @apply bg-blue-50 p-2 font-medium text-sm border border-gray-200;
+}
+td{
+    @apply border border-gray-200 p-2 text-xs
+}

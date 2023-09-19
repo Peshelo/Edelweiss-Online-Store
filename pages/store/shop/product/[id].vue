@@ -1,8 +1,45 @@
 <template>
     <StoreMainLayout>
         <div class="mx-auto max-w-[1400px] px-5">
+            <div v-if="!pending && showVariants" @click.self="showVariants = false" class="fixed backdrop-brightness-50 backdrop-blur-sm z-20 top-0 left-0 w-screen h-screen flex flex-col justify-center items-center">
+                <div class="bg-white rounded-md p-5 border border-gray-300">
+                    <h2 class="text-sm pb-3 border-b mb-5 text-blue-500">Live Stock Check</h2>
+                    <div class="flex flex-col border border-sky-100 p-3">
+                        <h3 class="mb-5">{{ productDetails.productName }}</h3>
+                        <table>
+                        <thead>
+                            <th></th>
+                            <th>SKU</th>
+                       <th>Name</th>
+                       <!-- <th>Description</th> -->
+                       <th>Price</th>
+                       <th>Size</th>
+                       <th>Stock</th>
+                       <th>Action</th>
+                        </thead>
+                       
+                        <tbody>
+                            <tr v-for="variant in productDetails.variants" :key="variant.id">
+                                <td><img :src="productDetails.defaultImageUrl" width="50" alt="" srcset=""></td>
+                                <td>{{ variant.sku !== null ? variant.sku : 'N/A' }}</td>
+                                <td>{{ variant.variantName }}</td>
+                                <!-- <td>{{ variant.variantDescription.length < 40 ? variant.variantDescription : `${variant.variantDescription.slice(0,40)}...` }}</td> -->
+                                <!-- <td>{{ variant.variantDescription}}</td> -->
+
+                                <td>{{ variant.price.toLocaleString("en-US", {style:"currency", currency:"USD"})}}</td>
+                                <td>{{ variant.size !== null ? variant.size : 'N/A'    }}</td>
+                                <td>{{ variant.stock }}</td>
+                                <td><button @click="addToCart(variant.id)" class="p-2 rounded-md bg-black text-white text-center text-xs" :disabled="loading">{{loading ?'Loading...':'Add to cart'}}</button></td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                    </div>
+                   
+                </div>
+
+            </div>
             <ul v-if="!pending" class="flex flex-row gap-x-2 text-sm text-gray-500 my-5">
-                <li @click="goBack()">{{ $router.options.history.state.back }}<b>{{ productDetails.category.categoryName ? productDetails.category.categoryName : "Category" }}</b></li>
+                <!-- <li @click="goBack()">{{ $router.options.history.state.back }}<b>{{ productDetails.category.categoryName === undefined ? productDetails.category.categoryName : "Category" }}</b></li> -->
             </ul>
             <div class="w-full my-4 grid grid-cols-2 max-md:grid-cols-1 max-md:gap-0 max-md:gap-y-2 gap-x-4" v-if="pending">
                 <div class=" animate-pulse px-4 rounded-lg h-[500px]">
@@ -65,8 +102,8 @@
         </label>
                 </div>
 
-                <label class="text-4xl max-md:text-2xl max-md:my-2 my-2 font-bold">{{ productDetails.variants[0].price.toLocaleString("en-US", {style:"currency", currency:"USD"}) }}</label>
-
+                <label class="text-4xl max-md:text-2xl max-md:my-2 my-2 font-bold"><span class="text-sm text-gray-500">From</span> {{ productDetails.variants[0].price.toLocaleString("en-US", {style:"currency", currency:"USD"}) }}</label>
+                <label class="re">NB:* Check variant to see actual prices</label>
             <div id="variants" class="">
                 <h2 class="my-2">Sizes:</h2>
                 <ul class="grid grid-cols-4 gap-x-2">
@@ -93,7 +130,9 @@
                 <label class="text-gray-600">Only <span class="text-yellow-500 font-semibold">12 items</span> left <br>Don't miss out!</label>
             </div>
             <div id="actions" class="my-5 flex flex-row items-center gap-x-4">
-                <button @click="addToCart" class="p-4 rounded-lg bg-black text-white text-center w-10/12 text-xl font-semibold flex flex-row gap-x-5 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Add to cart</button>
+                <!-- <button @click="addToCart" class="p-4 rounded-lg bg-black text-white text-center w-10/12 text-xl font-semibold flex flex-row gap-x-5 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Add to cart</button> -->
+                <button @click="showVariants = !showVariants" class="p-4 rounded-lg bg-black text-white text-center w-10/12 text-xl font-semibold flex flex-row gap-x-5 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Check out variants</button>
+
                 <button class="bg-gray-200 p-4 rounded-lg"><Icon name="ic:baseline-favorite-border" size="30"/></button>
             </div>
                 </div>
@@ -108,6 +147,10 @@
 import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
 import ShopLayout from '@/layouts/ShopLayout.vue'
 
+const showVariants = ref(false)
+const loading = ref(false)
+const cartId = ref('')
+
 const {id} = useRoute().params
 const url = `http://localhost:8080/products/${id}`
 const {data: productDetails,pending,error,refresh} = await useLazyFetch(url,{key:id})
@@ -116,22 +159,47 @@ function goBack() {
     this.$route.back()
 }
 
-function addToCart(){
-    let itemExist = false;
-    let cart = JSON.parse(localStorage.getItem('cart')) || []
-    cart.forEach(product => {
-        if(productDetails.value.productId === product.productId){
-            alert('Item is already in cart')
-            itemExist = true
-        }
-    });
-    if(!itemExist){
-        cart.push(productDetails.value)
-            const data = JSON.stringify(cart)
-            localStorage.setItem('cart',data)
-            alert("New item added to cart")
+async function addToCart(id){
+    const storedCartId = localStorage.getItem('cartId')
+    if(storedCartId == undefined || null){
+        return;
     }
- 
+    loading.value = true
+    var raw = "";
+
+var requestOptions = {
+  method: 'POST',
+  body: raw,
+  redirect: 'follow'
+};
+
+await fetch(`http://localhost:8080/cart/create?productVariantId=${id}&quantity=1`, requestOptions)
+  .then(response => response.text())
+  .then(result => {
+    cartId.value = result
+    localStorage.setItem('cartId',cartId.value);})
+  .catch(error => console.log('error', error))
+  .finally(loading.value = false);
 }
+
+
+// **Using LocalStorage
+// function addToCart(){
+//     let itemExist = false;
+//     let cart = JSON.parse(localStorage.getItem('cart')) || []
+//     cart.forEach(product => {
+//         if(productDetails.value.productId === product.productId){
+//             alert('Item is already in cart')
+//             itemExist = true
+//         }
+//     });
+//     if(!itemExist){
+//         cart.push(productDetails.value)
+//             const data = JSON.stringify(cart)
+//             localStorage.setItem('cart',data)
+//             alert("New item added to cart")
+//     }
+ 
+// }
 const amount = ref(0);
 </script>

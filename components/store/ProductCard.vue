@@ -11,7 +11,7 @@
                 <div class="flex flex-row justify-between items-center">
               <label class="text-md max-md:text-sm font-bold">{{productDetails.productName}}</label>
             </div>
-            <p class="text-sm max-md:text-xs">{{productDetails.productDescription}}</p>
+            <p class="text-sm max-md:text-xs text-gray-500">{{productDetails.productDescription.length < 120 ? productDetails.productDescription : `${productDetails.productDescription.slice(0,120)}...`}}</p>
             <label
               ><Icon
                 name="material-symbols:star-rounded"
@@ -45,7 +45,7 @@
             </button> -->
             </div>
             <label class="text-md p-2 max-md:text-sm font-bold"
-                >USD {{ productDetails.variants[0].price }}<sup>.00</sup></label
+                > From USD {{ productDetails.variants[0].price }}<sup>.00</sup></label
               >
             <button @click.prevent :class="isLiked ? 'bg-white  border border-red-100' : 'bg-gray-300'" class="bg-gray-300 right-5 top-5 absolute text-white p-2 rounded-full" @click="isLiked = !isLiked"><Icon name="ic:baseline-favorite" :class="isLiked ? 'text-red-500' : 'text-white'" size="25"/></button>
           </NuxtLink>
