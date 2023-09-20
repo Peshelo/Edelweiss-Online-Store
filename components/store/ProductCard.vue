@@ -1,10 +1,10 @@
 <template> 
-            <NuxtLink :to="`./product/${productDetails.productId}`" id="productCard" class=" relative cursor:pointer flex flex-col w-fullbg-white text-left gap-y-1 p-2 bg-white border border-gray-200 rounded-xl hover:shadow-lg duration-150">
+            <NuxtLink :to="`/store/shop/product/${productDetails.productId}`" id="productCard" class=" relative cursor:pointer flex flex-col w-fullbg-white text-left gap-y-1 p-2 bg-white border border-gray-200 rounded-xl hover:shadow-lg duration-150">
             <img
               :src="productDetails.defaultImageUrl ? productDetails.defaultImageUrl :'https://placehold.co/600x400/D3D3D3/FFFFFF/?text=Edelweiss+Store'"
               alt="product"
               loading="lazy"
-              class="object-cover rounded-xl h-[250px] max-sm:h-full hover:shadow-lg"
+              class="object-cover rounded-xl h-[250px] max-sm:h-full hover:shadow-sm"
               srcset=""
             />
             <div id="productDetails" class="max-sm:mx-2 mt-4 px-2  max-sm:mt-0">

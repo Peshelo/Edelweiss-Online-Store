@@ -1,7 +1,30 @@
 <template>
   <div class="fixed overflow-y-auto overflow-x-hidden bg-gray-100 h-[100vh] w-full max-md:relative">
+    <div v-if="showAuthModal" @click.self="showAuthModal = false" class="fixed flex flex-col justify-center items-center z-50 top-0 left-0 w-screen h-screen backdrop-brightness-50 backdrop-blur-sm">
+      <LazyStoreAuthLogin @switch="showLogin = !showLogin" v-if="showLogin"/>
+      <StoreAuthRegister @register="showAuthModal = false" @switch="showLogin = !showLogin" v-else/>
+    </div>
+    <div class="flex w-full bg-white flex-row items-center p-4 border-b">
+      <div class="w-[1600px]  mx-auto flex flex-row justify-between gap-x-8">
+        <ul class="flex text-gray-500 max-md:text-xs max-md:gap-x-2 flex-row gap-x-4">
+        <li><NuxtLink to="/store/about/">About Us</NuxtLink></li>
+        <li><NuxtLink to="/store/order-tracking/">Order Tracking</NuxtLink></li>
+        <li><NuxtLink to="/store/contact/">Contact Us</NuxtLink></li>
+        <li><NuxtLink to="/store/faq/">FAQs</NuxtLink></li>
+      </ul>
+      <ul class="hidden md:flex md:flex-row gap-x-4">
+        <li><select>
+          <option>English</option>
+        </select></li>
+        <li><select>
+          <option>USD</option>
+        </select></li>
+      </ul>
+      </div>
+  
+    </div>
     <!-- Nav Bar -->
-    <div  class="sticka md:hidden shadow-md bg-white w-screen p-4 h-fit">
+    <div class="sticka md:hidden shadow-md bg-white w-screen p-4 h-fit">
       <NuxtLink to="/store/shop/" class="w-fit h-fit">
         <img
           src="/edelweiss-full-colour.png"
@@ -33,33 +56,34 @@
           v-model="searchParam"
           class="outline-none text-sm min-w-[280px] bg-transparent p-1"
           placeholder="Search"
-          @keyup="searchParam.length > 0 ? showSearch = true: showSearch = false"
+          @keyup="searchProduct"
+          @keypress="searchParam.length > 0 ? showSearch = true: showSearch = false"
         />
         <div
           v-if="showSearch"
           class="absolute z-10 text-gray-600 top-12 flex flex-col gap-y-1 bg-white shadow-lg w-full border border-gray-200 rounded-md"
         >
-          <NuxtLink
-            to="./"
+          <NuxtLink v-for="product in filtered" :key="product.productName"
+            :to="`/store/shop/product/${product.productId}`"
             class="flex hover:bg-gray-100 p-2 flex-row border-b border-gray-100 justify-between items-center"
           >
             <div class="flex flex-row items-center gap-2">
               <img
-                src="https://cdn.thewirecutter.com/wp-content/media/2023/06/bestlaptops-2048px-9765.jpg"
+                :src="product.defaultImageUrl"
                 width="50"
                 alt=""
                 loading="lazy"
                 srcset=""
               />
-              <label>Laptop</label>
+              <label class="text-sm">{{ product.productName}}</label>
             </div>
-            <label class="text-red-400 font-semibold">$20.00</label>
+            <label class="text-red-400 font-semibold">${{ product.variants[0].price }}</label>
           </NuxtLink>
           <NuxtLink
             to="./"
             class="flex text-sm p-2 flex-row border-b border-gray-100 justify-center items-center"
           >
-            <label>Load More ...</label>
+            <label>{{filtered.length < 1 ? "No items found" : "Load More ..."}}</label>
           </NuxtLink>
         </div>
       </div>
@@ -83,6 +107,16 @@
               <Icon name="material-symbols:shopping-bag-outline" size="24" />
             </div>
             <label class="text-sm">Cart</label>
+          </NuxtLink>
+        </li>
+        <li
+          class="md:hidden cursor-pointer text-gray-600 hover:text-red-500 duration-150"
+        >
+          <NuxtLink to="/store/shop/" class="flex flex-col justify-center items-center">
+            <div class="relative">
+              <Icon name="solar:shop-2-linear" size="24" />
+            </div>
+            <label class="text-sm">Shop</label>
           </NuxtLink>
         </li>
         <li
@@ -114,8 +148,8 @@
                 <li class="p-2 text-sm border-b border-gray-300 hover:font-bold duration-150 cursor-pointer">Track Order</li>
                 <li class="p-2 text-sm border-b border-gray-300 hover:font-bold duration-150 cursor-pointer">Returns</li>
                 <li class="p-2 text-sm hover:font-bold duration-150 cursor-pointer">Track Order</li>
-                <li class="p-2 text-sm border-b border-gray-300 bg-red-500 text-white rounded my-2 text-center hover:font-bold duration-150 cursor-pointer">Register</li>
-                <li class="py-1 text-sm text-black my-2 text-center hover:font-bold duration-150 cursor- text-xs">Already have an account? <a class="text-red-500">Login</a></li>
+                <li @mouseover="showLogin = false" @click="showAuthModal= true" class="p-2 text-sm border-b border-gray-300 bg-red-500 text-white rounded my-2 text-center hover:font-bold duration-150 cursor-pointer">Register</li>
+                <li @mouseover="showLogin = true" class="py-1 text-sm text-black my-2 text-center hover:font-bold duration-150 cursor- text-xs">Already have an account? <a class="text-red-500" @click="showAuthModal=true">Login</a></li>
 
               </ul>
           </div>
@@ -133,7 +167,7 @@
             <div id="categories">
                 <h3 class="mb-2">Categories</h3>
             <ul class="w-full">
-                <li @mouseover="currentCategory = category.categoryDescription" v-for="(category,index) in categories" :key="category.id" class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">{{ category.categoryName }}</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
+                <li @mouseover="currentCategory = category.categoryDescription" @mousehover="fetchSubCategory(category.id)" @click="$router.push(`/store/shop/category-${category.id}/subCategory-All`)" v-for="(category,index) in categories" :key="category.id" class="w- flex flex-row justify-between items-center border-b hover:bg-gray-100 duration-150 p-2"><NuxtLink to="./" class="p-2  w-full">{{ category.categoryName }}</NuxtLink><Icon name="material-symbols:arrow-forward-ios" size="17"/></li>
             </ul>
             </div>
             <div id="categories">
@@ -149,13 +183,7 @@
           <NuxtLink to="/store/shop/">Shop</NuxtLink>
         </li>
         <li class="border-gray-300 px-2 font-bold">
-          <NuxtLink to="./">Deals</NuxtLink>
-        </li>
-        <li class="border-gray-300 px-2 font-bold">
-          <NuxtLink to="./">What's new</NuxtLink>
-        </li>
-        <li class="border-gray-300 px-2 font-bold">
-          <NuxtLink to="./">Delivery</NuxtLink>
+          <NuxtLink to="/store/contact">Contact</NuxtLink>
         </li>
       </ul>
     </div>
@@ -182,10 +210,30 @@ const showSearch = ref(false);
 const showCategories = ref(false)
 const currentCategory = ref("")
 const showCart = ref(false)
+const showAuthModal = ref(false)
+let showLogin = ref(true)
+let filtered = ref('')
 // cartItemCount = JSON.parse(localStorage.getItem('cart')).length
 
-
 const {data: categories,pending,error} = await useLazyFetch('http://localhost:8080/categories/all')
+
+const {data: products,pending:pendingProducts,error:errorProducts} = await useLazyFetch('http://localhost:8080/products?page=0&pageSize=20')
+
+async function fetchSubCategory(id){
+  const {data: subCategories,pending:subCategoriesPending,error: subCategoryLoading} = await useLazyFetch('http://localhost:8080/categories/all')
+}
+filtered.value = products.value.content
+
+function searchProduct(){
+  filtered.value = products.value.content
+    if(searchParam.value != ""){
+        filtered.value = filtered.value.filter(item => item.productName.includes(searchParam.value))
+    }else{
+        filtered.value = []
+    }
+    console.log(filtered.value)
+    return filtered.value;
+  }
 </script>
 
 <style>

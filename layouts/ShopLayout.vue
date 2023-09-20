@@ -2,14 +2,14 @@
     <div class="w-full mx-auto max-w-[1600px]">
 
         <div class="w-full flex flex-row py-10">
-            <div class="w-2/6 max-sm:hidden mr-2 border-r flex flex-col px-4 gap-x-3">
+            <div class="w-1/6 duration-300 max-sm:hidden mr-2 border-r flex flex-col px-4 gap-x-3">
                 <h3 class="text-2xl font-semibold">Get the best deals</h3>
                 <p class="text-gray-600 my-2">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem praesentium necessitatibus optio? <mark>Click here</mark></p>
-                <div id="priceRange">
+                <!-- <div id="priceRange">
                     <h3 class="font-semibold">Price Range</h3>
                     <div class="w-full h-10 bg-gray-300 animate-pulse"></div>
-                </div>
-                <div id="Brands" class="my-4">
+                </div> -->
+                <!-- <div id="Brands" class="my-4">
                     <h3 class="font-semibold">Price Range</h3>
                <div class="bg-white p-2 my-2 rounded-lg">
                 <Icon name="ph:magnifying-glass" size="20" class="text-gray-500" />
@@ -42,9 +42,9 @@
                     </li>
 
                </ul>
-                </div>
+                </div> -->
             </div>
-            <div class="max-sm:w-full">
+            <div class="max-sm:w-full w-5/6">
                 <slot/>
             </div>
             

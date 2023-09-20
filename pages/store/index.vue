@@ -6,6 +6,12 @@
       <div class="products">
         <h1 class="mt-20 max-sm:mt-10 mb-4">Top Products</h1>
         <div id="productsList" class="grid grid-cols-4 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-3 p-2">
+          <div class="bg-gray-200 animate-pulse w-full h-[300px] rounded-md"></div>
+          <div class="bg-gray-200 animate-pulse w-full h-[300px] rounded-md"></div>
+          <div class="bg-gray-200 animate-pulse w-full h-[300px] rounded-md"></div>
+          <div class="bg-gray-200 animate-pulse w-full h-[300px] rounded-md"></div>
+        </div>
+        <div id="productsList" class="grid grid-cols-4 gap-4 max-md:grid-cols-2 max-sm:grid-cols-1 max-lg:grid-cols-3 p-2">
                 <!-- <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
                 <LazyStoreProductCard/>
@@ -18,14 +24,14 @@
       </div>
     <div>
         <h1 class="mt-20 max-sm:mt-10 mb-4">Services To Help You Shop</h1>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-3 gap-6 max-md:grid-cols-1">
             <div class="bg-gray-200">
                 <div class="px-5 py-10 h-[200px]">
                     <h2 class="text-4xl mb-5">Frequently Asked Questions</h2>
                     <p class="text-lg text-gray-500">Updates on safe Shopping our Stores</p>
                 </div>
                
-                <img src="https://cf.ltkcdn.net/family/images/orig/258550-2121x1414-Extended_Family_African_American.jpg" class="object-cover h-[300px] w-full" loading="lazy" alt="family">
+                <img src="https://cf.ltkcdn.net/family/images/orig/258550-2121x1414-Extended_Family_African_American.jpg" class="object-cover h-[300px] max-md:h-[150px] w-full" loading="lazy" alt="family">
             </div>
             <div class="bg-gray-200">
                 <div class="px-5 py-10 h-[200px]">
@@ -33,14 +39,14 @@
                     <p class="text-lg text-gray-500">Updates on safe Shopping our Stores</p>
                 </div>
                
-                <img src="https://cdn.corporatefinanceinstitute.com/assets/online-payment-companies-1024x683.jpeg" class="object-cover h-[300px] w-full" loading="lazy" alt="family">
+                <img src="https://cdn.corporatefinanceinstitute.com/assets/online-payment-companies-1024x683.jpeg" class="object-cover h-[300px] max-md:h-[150px] w-full" loading="lazy" alt="family">
             </div>
             <div class="bg-gray-200">
                 <div class="px-5 py-10 h-[200px]">
                     <h2 class="text-4xl mb-5">Home Delivery Options</h2>
                     <p class="text-lg text-gray-500">Updates on safe Shopping our Stores</p>
                 </div>
-                <img src="https://cometdelivery.com/assets/img/home-delivery.jpg" class="object-cover h-[300px] w-full" loading="lazy" alt="family">
+                <img src="https://cometdelivery.com/assets/img/home-delivery.jpg" class="object-cover h-[300px] max-md:h-[150px] w-full" loading="lazy" alt="family">
             </div>
         </div>
     </div>

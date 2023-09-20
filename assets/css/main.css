@@ -31,3 +31,7 @@ th{
 td{
     @apply border border-gray-200 p-2 text-xs
 }
+
+.router-link-active{
+    @apply text-red-600
+}

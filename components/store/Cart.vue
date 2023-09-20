@@ -1,5 +1,5 @@
 <template>
-    <div  class="fixed w-[450px] max-md:w-screen py-10 top-0 right-0 h-screen bg-white p-5 duration-500">
+    <div  class="fixed w-[450px] max-md:pt-28 max-md:w-screen py-10 top-0 right-0 h-screen z-50 bg-white p-5 duration-500">
         <h1>Cart</h1>
         <p v-if="!cart || cart.length < 1">Cart is empty</p>
         <ul v-else class="my-5 p-1 h-4/5 overflow-x-hidden overflow-y-auto">
@@ -15,7 +15,7 @@
             <label class="w-full flex flex-row justify-between items-center"><label>Total Items:</label> <label>25</label></label>
             <label class="w-full flex flex-row justify-between items-center"><label>Total Amount</label> <label>$25</label></label>
 
-            <button class="p-4 rounded-lg bg-black text-white text-center w-full text-xl font-semibold flex flex-row gap-x-2 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Proceed To Checkout</button>
+            <button @click="$router.push('/store/checkout/')" class="p-4 rounded-lg bg-black text-white text-center w-full text-xl font-semibold flex flex-row gap-x-2 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Proceed To Checkout</button>
         </div>
     </div>
 </template>
@@ -38,6 +38,7 @@ fetchCart();
 
 // cart.value = JSON.parse(localStorage.getItem('cart')) || [];
 console.log(cart.value)
+
 
 // Using localStorage
 // function removeItem(id){

@@ -1,24 +1,24 @@
 <template>
-         <Swiper
+    <swiper
+    :slidesPerView="1"
     :spaceBetween="30"
-    :centeredSlides="true"
     :autoplay="{
       delay: 2500,
-      disableOnInteraction: false,
+      disableOnInteraction:false
     }"
+    :loop="true"
     :pagination="{
       clickable: true,
     }"
     :navigation="true"
     :modules="modules"
-    class="mySwiper h-[500px] bg-gray-300"
+    class="mySwiper h-[500px] max-md:h-[300px] z-10 bg-gray-200"
   >
-    <!-- <swiper-slide class="bg-red-500"><img src="https://static.vecteezy.com/system/resources/thumbnails/004/707/493/small/online-shopping-on-phone-buy-sell-business-digital-web-banner-application-money-advertising-payment-ecommerce-illustration-search-vector.jpg" width="100" class="w-full h-full object-fit" alt="banner"></swiper-slide> -->
-    <swiper-slide class="bg-green-500">Slide 2</swiper-slide><swiper-slide>Slide 3</swiper-slide>
-    <swiper-slide class="bg-yellow-500">Slide 4</swiper-slide><swiper-slide>Slide 5</swiper-slide>
-    <swiper-slide class="bg-black">Slide 6</swiper-slide><swiper-slide>Slide 7</swiper-slide>
-    <swiper-slide class="bg-blue-500">Slide 8</swiper-slide><swiper-slide>Slide 9</swiper-slide>
-  </Swiper>
+    <swiper-slide><img src="https://www.qualitylogoproducts.com/images/_promo-university/_billboard/desktop/how-do-you-choose-a-promo-product1.jpg" loading="lazy" class="w-full h-full object-cover" alt=""></swiper-slide>
+    <swiper-slide><img src="https://www.netmeds.com/images/cms/aw_rbslider/slides/1692173138_Fabessentials_1.jpg" loading="lazy" class="w-full h-full object-cover" alt=""></swiper-slide>
+    <swiper-slide><img src="https://www.quillsuk.co.uk/wp-content/uploads/2019/08/promo-gifts-blog-image-2-734x321.jpg" loading="lazy" class="w-full h-full object-cover" alt=""></swiper-slide>
+    <swiper-slide><img src="https://www.quillsuk.co.uk/wp-content/uploads/2019/08/promo-gifts-blog-image-2-734x321.jpg" loading="lazy" class="w-full h-full object-cover" alt=""></swiper-slide>
+  </swiper>
 </template>
 <script setup>
 import { register } from 'swiper/element/bundle';
@@ -30,9 +30,15 @@ register();
   // Import Swiper Vue.js components
   import { Swiper, SwiperSlide } from 'swiper/vue';
 
+  // Import Swiper styles
+  import 'swiper/css';
+
+  import 'swiper/css/pagination';
+  import 'swiper/css/navigation';
+
 
   // import required modules
-  import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+  import { Pagination, Navigation } from 'swiper/modules';
 
   export default {
     components: {
@@ -41,7 +47,7 @@ register();
     },
     setup() {
       return {
-        modules: [Autoplay, Pagination, Navigation],
+        modules: [Pagination, Navigation],
       };
     },
   };

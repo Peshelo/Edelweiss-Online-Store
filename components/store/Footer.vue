@@ -16,19 +16,16 @@
     </div>
     <div class="grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
       <div>
-        <p class="font-semibold tracking-wide text-gray-800">Category</p>
+        <p class="font-semibold tracking-wide text-gray-800">Info</p>
         <ul class="mt-2 space-y-2">
           <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">News</a>
+            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">About</a>
           </li>
           <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">World</a>
+            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Contact Us</a>
           </li>
           <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Games</a>
-          </li>
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">References</a>
+            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Terms and Conditions</a>
           </li>
         </ul>
       </div>
@@ -53,22 +50,10 @@
         </ul>
       </div>
       <div>
-        <p class="font-semibold tracking-wide text-gray-800">Apples</p>
+        <p class="font-semibold tracking-wide text-gray-800">Category</p>
         <ul class="mt-2 space-y-2">
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Media</a>
-          </li>
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Brochure</a>
-          </li>
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Nonprofit</a>
-          </li>
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Educational</a>
-          </li>
-          <li>
-            <a href="/" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">Projects</a>
+          <li v-for="category in data" :key="category.id">
+            <NuxtLink :to="`/store/shop/category-${category.id}/subCategory-All`" class="text-gray-600 transition-colors duration-300 hover:text-deep-purple-accent-400">{{ category.categoryName }}</NuxtLink>
           </li>
         </ul>
       </div>
@@ -93,7 +78,7 @@
   </div>
   <div class="flex flex-col justify-between pt-5 pb-10 border-t sm:flex-row">
     <p class="text-sm text-gray-600">
-      © Copyright {{ year }} Rapiddata Inc. All rights reserved.
+      © Copyright {{ year }} <a href="www.edelweiss.co.zw"  class="underline">Edelweiss</a>. All rights reserved.
     </p>
     <div class="flex items-center mt-4 space-x-4 sm:mt-0">
       <a href="/" class="text-gray-500 transition-colors duration-300 hover:text-deep-purple-accent-400">
@@ -126,4 +111,5 @@
 
 <script setup>
 const year = ref('2023')
+const {data,pending,error} = useLazyFetch('http://localhost:8080/categories/all')
 </script>
