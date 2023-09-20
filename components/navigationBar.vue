@@ -1,11 +1,11 @@
 <template>
-    <AdminSidebar>
-    <div>
-          <!-- Nav Bar -->
-          <div class="w-full border-b border-gray-100 px-10 py-5 max-md:p-0 flex justify-between">
+            <!-- Nav Bar -->
+            <div class="w-full border-b border-gray-100 px-10 py-5 max-md:p-0 flex justify-between">
                 <div class="grid grid-cols-1 gap-2">
-                    <h1 class="text-xl font-bold text-black">Payments</h1>
+                    <h1 class="text-xl font-bold text-black">Dashboard</h1>
+                    <h1 class="text-sm font-normaol text-gray-400">Welcome, Mr Mutambudzi</h1>
                 </div>
+                
                 <ul  class="max-md:absolute max-md:bottom-1  bg-white max-md:border-t-2 border-gray-100 max-md:p-2 max-md:w-full  flex flex-row gap-4 items-center max-md:justify-between max-md:px-[100px]">
                   
                     <li class="cursor-pointer text-gray-600 hover:text-red-500 duration-150">
@@ -20,17 +20,14 @@
                 </ul>
             </div>
             <!-- End of navbar -->
-        <tables/>
-    </div>
-</AdminSidebar>
-  </template>
-  
-  <script>
+</template>
 
-import AdminSidebar from '~/layouts/adminSidebar.vue';
-  
-  export default {
-      components: { AdminSidebar }
-};
-  </script>
-  
+<script>
+    export default {
+        
+    }
+</script>
+
+<style lang="scss" scoped>
+
+</style>
