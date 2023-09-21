@@ -111,10 +111,10 @@
                                 </td>
                                 <td class="px-3 py-4 flex gap-3">
                                     <a href="#" class="font-medium text-blue-900 dark:text-blue-500 hover:underline">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  @click="fetchOrgFinanceByID(item.id)"  class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/> </svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  @click="getVariantById(item.id)"  class="bi bi-pencil-square" viewBox="0 0 16 16"> <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/> <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/> </svg>
                                     </a >
-                                    <a href="#" @click="openDeleteModal(item.productId)" class="font-medium text-blue-900 dark:text-blue-500 hover:underline" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  @click="openDeleteModal(item.id)" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
+                                    <a href="#" @click="openDeleteModal(item.id)" class="font-medium text-blue-900 dark:text-blue-500 hover:underline" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"  class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg>
                                     </a >
                                 </td>
                             </tr>
@@ -202,50 +202,44 @@
                     <h2 class="text-2xl font-bold mb-4">{{ editModalHeading }}</h2>
                     <button class="bg-red-500 text-white text-xl font-xl px-3 py-1 mt-4 rounded-md" @click="closeEditModal">X</button>
                   </div>
-                  <form @submit.prevent="updateProductVariant()" class=" grid grid-cols-1 shadow-md rounded px-8 py-6 mb-4">       
-                            <div class="grid grid-cols-2 gap-2">
-                                <div class="mb-4">
-                                    <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Product ID</label>
-                                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.productId">
-                                    <p v-if="this.errors.productId" class="text-sm text-red-600 text-left mb-2">*{{this.errors.productId}}</p>
-                                 </div> 
+                  <form @submit.prevent="updateProductVariant(variantUpdate.id)" class=" grid grid-cols-1 shadow-md rounded px-8 py-6 mb-4">       
+                            <div class="grid grid-cols-2 gap-2"> 
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Variant Name</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.variantName"  required>
+                                    type="text" v-model="variantUpdate.variantName"  required>
                                     <p v-if="this.errors.variantName" class="text-sm text-red-600 text-left mb-2">*{{this.errors.variantName}}</p>
                                  </div> 
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Variant Description</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.variantDescription" required>
+                                    type="text" v-model="variantUpdate.variantDescription" required>
                                     <p v-if="this.errors.variantDescription" class="text-sm text-red-600 text-left mb-2">*{{this.errors.variantDescription}}</p>
                                 </div>  
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Price</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.price">
+                                    type="text" v-model="variantUpdate.price">
                                 </div> 
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Colour</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="color" v-model="variant.colour">
+                                    type="text" v-model="variantUpdate.colour">
                                 </div> 
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Size</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.size">
+                                    type="text" v-model="variantUpdate.size">
                                 </div> 
                                 <div class="mb-10">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">Stock</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.stock">
+                                    type="text" v-model="variantUpdate.stock">
                                 </div> 
                                 <div class="mb-4">
                                     <label class="block text-gray-700 text-sm font-bold mb-2" for="local">SKU</label>
                                     <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                                    type="text" v-model="variant.sku">
+                                    type="text" v-model="variantUpdate.sku">
                                 </div> 
                                 <div class="mb-4">
                                     <input type="file" name="" id="">
@@ -367,6 +361,27 @@ export default {
 
     }).finally(() => this.loading = false);
     },
+    async getVariantById(ID){
+            this.loading = true;
+      const URL = `http://localhost:8080/product-variants/${ID}`;
+      // const token = localStorage.token;
+      await axios.get(URL,{
+        headers: {'Content-Type': 'application/json',
+            // Authorization : 'Bearer ' + token,
+            'Access-Control-Allow-Origin': '*'}
+      }).then((res) =>
+       {
+        this.variantUpdate = res.data
+        console.log(this.variantUpdate);
+        console.log("Information tatora baba.");
+        this.editModal = true;
+      }) .catch(error => {
+        console.log(error.code)
+        this.error=error.code;
+        this.errored = true
+  
+      }).finally(() => this.loading = false);
+      },
     async addProductVariant(){
             this.errors = {};
                  
@@ -399,12 +414,12 @@ export default {
         console.log("Form submitted successfully");
       }
     },
-    async updateProductVariant(subcatID){
+    async updateProductVariant(vID){
         this.errors = {};
               if (Object.keys(this.errors).length === 0) {
           // make API call or submit form data here
           try{
-          await axios.put(`http://localhost:8080/product-variants/update/${sub}`,{
+          await axios.put(`http://localhost:8080/product-variants/update/${vID}`,{
             variantName: this.variantUpdate.variantName,
             variantDescription: this.variantUpdate.variantDescription,
             price: this.variantUpdate.price,
@@ -432,12 +447,12 @@ export default {
       console.log(this.ID)
       if(_option == 'Yes'){
         try{
-        await axios.delete('http://localhost:8080/products/delete/'+ this.ID,{
+        await axios.delete('http://localhost:8080/product-variants/delete/'+ this.ID,{
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
           }).then((response) =>{
           const data = response.data;
-          alert("Product deleted successfully.")
+          alert("Product variant deleted successfully.")
           this.closeDeleteModal()
           this.response = data;
           console.log(response);

@@ -7,7 +7,7 @@
                     <img src="./../assets/edelweiss-full-colour.png" loading="lazy" alt="" class=" w-full h-full pt-2 5">
                 </div> 
             </div>
-            <div class="mt-12 relative">
+            <div class="mt-10 relative">
                 <ul>
                     <NuxtLink to="/admin/" class="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 hover:text-black rounded-md mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none"  viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5 opacity-75">
@@ -45,6 +45,11 @@
                                 <NuxtLink to="/admin/subcategory" class="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 hover:text-black rounded-md mt-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16"> <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/> <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/> </svg>
                                     Sub-Categories</NuxtLink>
+                            </li>
+                            <li class="mb-2">
+                                <NuxtLink to="/admin/variants" class="text-gray-500 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-200 hover:text-black rounded-md mt-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-stack" viewBox="0 0 16 16"> <path d="m14.12 10.163 1.715.858c.22.11.22.424 0 .534L8.267 15.34a.598.598 0 0 1-.534 0L.165 11.555a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.66zM7.733.063a.598.598 0 0 1 .534 0l7.568 3.784a.3.3 0 0 1 0 .535L8.267 8.165a.598.598 0 0 1-.534 0L.165 4.382a.299.299 0 0 1 0-.535L7.733.063z"/> <path d="m14.12 6.576 1.715.858c.22.11.22.424 0 .534l-7.568 3.784a.598.598 0 0 1-.534 0L.165 7.968a.299.299 0 0 1 0-.534l1.716-.858 5.317 2.659c.505.252 1.1.252 1.604 0l5.317-2.659z"/> </svg>
+                                    Product Variant</NuxtLink>
                             </li>
                         </ul>
                     </div>

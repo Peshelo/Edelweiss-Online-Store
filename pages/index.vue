@@ -1,7 +1,7 @@
 <template>
 <NuxtLayout name="default">
    <NuxtLink to="./store/">Store</NuxtLink>
-   <NuxtLink to="/admin/">Admin</NuxtLink>
+   <NuxtLink to="/auth/adminLogin">Admin Login</NuxtLink>
 </NuxtLayout>
 </template>
 

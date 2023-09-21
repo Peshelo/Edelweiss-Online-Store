@@ -59,7 +59,7 @@
                                             {{cats.id}}
                                         </th>
                                         <td class="pr-44 pl-1 py-4 text-md font-semibold">
-                                            {{cats.categoryName}} (10)
+                                            {{cats.categoryName}}
                                                 <div>
                                                 <p class="text-xs font-normal"> {{cats.categoryDescription}} </p>
                                                 </div>                                    
