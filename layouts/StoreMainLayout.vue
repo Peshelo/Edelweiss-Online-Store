@@ -4,19 +4,19 @@
       <LazyStoreAuthLogin @switch="showLogin = !showLogin" v-if="showLogin"/>
       <StoreAuthRegister @register="showAuthModal = false" @switch="showLogin = !showLogin" v-else/>
     </div>
-    <div class="flex w-full bg-white flex-row items-center p-4 border-b">
+    <div class="flex w-full bg-white flex-row items-center p-2 justify-center border-b">
       <div class="w-[1600px]  mx-auto flex flex-row justify-between gap-x-8">
-        <ul class="flex text-gray-500 max-md:text-xs max-md:gap-x-2 flex-row gap-x-4">
+        <ul class="flex text-gray-500 text-[12px] max-md:gap-x-2 flex-row gap-x-4">
         <li><NuxtLink to="/store/about/">About Us</NuxtLink></li>
         <li><NuxtLink to="/store/order-tracking/">Order Tracking</NuxtLink></li>
         <li><NuxtLink to="/store/contact/">Contact Us</NuxtLink></li>
         <li><NuxtLink to="/store/faq/">FAQs</NuxtLink></li>
       </ul>
-      <ul class="hidden md:flex md:flex-row gap-x-4">
-        <li><select>
+      <ul class="hidden md:flex text-[12px] md:flex-row gap-x-4">
+        <li><select class="p-1 px-3 rounded-md">
           <option>English</option>
         </select></li>
-        <li><select>
+        <li><select class="p-1 px-3 rounded-md">
           <option>USD</option>
         </select></li>
       </ul>
@@ -24,27 +24,27 @@
   
     </div>
     <!-- Nav Bar -->
-    <div class="sticka md:hidden shadow-md bg-white w-screen p-4 h-fit">
+    <div class="md:hidden shadow-md bg-white w-screen p-4 h-fit">
       <NuxtLink to="/store/shop/" class="w-fit h-fit">
         <img
           src="/edelweiss-full-colour.png"
-          width="100"
+          width="120"
           height="100"
           class="object-fit"
         />
       </NuxtLink>
     </div>
-    <div class="mx-auto bg-white">
+    <div class="mx-auto bg-gray-50">
     <div
-      class="w-full max-md:shadow-2xl max-md:z-50 p-3 bg-white max-md:fixed max-md:bottom-0 max-md:left-0 right-0 border-b border-gray-100 px-10 max-md:p-0 flex flex-row justify-between"
+      class="md:drop-shadow-sm w-full max-md:shadow-2xl max-md:z-50 p-3 bg-white max-md:fixed max-md:bottom-0 max-md:left-0 right-0 border-b border-gray-100 px-10 max-md:p-0 flex flex-row justify-between"
     >
    
-      <NuxtLink to="/store/" class="min-w-[140px] max-md:w-[20px] max-md:p-4">
+      <NuxtLink to="/store/" class="min-w-[140px] max-md:w-[20px] flex justify-center items-center max-md:p-4">
         <img
           src="/edelweiss-full-colour.png"
           width="200"
           height="200"
-          class="object-fit"
+          class="object-fit w-[120px]"
         />
       </NuxtLink>
       <div
@@ -143,13 +143,13 @@
             </div>
             <label class="text-sm">Account</label>
           </NuxtLink>
-          <div v-if="showAccount"  @mouseleave="showAccount = false" class="absolute border border-gray-150 bg-white text-gray-700 top-25 right-2 z-10 border border-gray-100 shadow-lg rounded-lg w-[250px]">
+          <div v-if="showAccount"  @mouseleave="showAccount = false" class="absolute border-gray-150 bg-white text-gray-700 top-25 right-2 z-10 border border-gray-100 shadow-lg rounded-lg w-[250px]">
               <ul class="p-2">
                 <li class="p-2 text-sm border-b border-gray-300 hover:font-bold duration-150 cursor-pointer">Track Order</li>
                 <li class="p-2 text-sm border-b border-gray-300 hover:font-bold duration-150 cursor-pointer">Returns</li>
                 <li class="p-2 text-sm hover:font-bold duration-150 cursor-pointer">Track Order</li>
                 <li @mouseover="showLogin = false" @click="showAuthModal= true" class="p-2 text-sm border-b border-gray-300 bg-red-500 text-white rounded my-2 text-center hover:font-bold duration-150 cursor-pointer">Register</li>
-                <li @mouseover="showLogin = true" class="py-1 text-sm text-black my-2 text-center hover:font-bold duration-150 cursor- text-xs">Already have an account? <a class="text-red-500" @click="showAuthModal=true">Login</a></li>
+                <li @mouseover="showLogin = true" class="py-1 text-black my-2 text-center hover:font-bold duration-150 cursor- text-xs">Already have an account? <a class="text-red-500" @click="showAuthModal=true">Login</a></li>
 
               </ul>
           </div>

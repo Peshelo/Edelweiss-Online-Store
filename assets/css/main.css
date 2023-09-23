@@ -5,7 +5,7 @@ h1,p,label{
     font-family: Montserrat;
 }
 h1{
-    @apply text-3xl font-extrabold max-sm:text-lg
+    @apply text-xl font-extrabold max-sm:text-lg
 }
 h2{
     @apply text-2xl font-semibold
@@ -14,7 +14,7 @@ label{
     @apply max-sm:text-sm
 }
 ul{
-    font-family: RaleWay;
+    font-family: Montserrat;
 }
 a:hover{
     @apply text-red-500 duration-300

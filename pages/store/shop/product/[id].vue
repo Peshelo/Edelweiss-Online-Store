@@ -65,7 +65,7 @@
             <div v-else class="flex flex-col">
                 <div class="flex flex-row max-md:flex-col">
                 <div id="productPictures" class="w-1/2 max-md:w-full max-md:mb-5 flex flex-col gap-2">
-                    <img :src="productDetails.defaultImageUrl" loading="lazy" class="w-full h-[500px] max-md:h-[350px] object-cover rounded-lg" alt="">
+                    <img :src="productDetails.defaultImageUrl ? productDetails.defaultImageUrl :'https://placehold.co/600x400/D3D3D3/FFFFFF/?text=Edelweiss+Store'" loading="lazy" class="w-full h-[500px] max-md:h-[350px] object-cover rounded-lg" alt="">
                     <div class="w-full grid grid-cols-4 gap-x-2">
                         <img src="https://images.prismic.io/rushordertees-web/e225cda8-d94c-4f4a-8bef-d0ddbdd506a3_Performance+Shirts.jpg?auto=compress,format&rect=0,0,1600,1800&w=800&h=900" class="object-cover h-[120px] opacity-80 hover:opacity-100 duration-150 w-full rounded-lg border-2 border-gray-900" alt="">
                         <img src="https://fullyfilmy.in/cdn/shop/products/New-Mockups---no-hanger---TShirt-Yellow.jpg?v=1639657077" class="object-cover h-[120px] opacity-80 hover:opacity-100 duration-150 w-full rounded-lg" alt="">
@@ -176,11 +176,12 @@ await fetch(`http://localhost:8080/cart/create?productVariantId=${id}&quantity=1
   .then(response => response.text())
   .then(result => {
     cartId.value = result
-    localStorage.setItem('cartId',cartId.value);})
+    if(result.ok){
+        localStorage.setItem('cartId',cartId.value)}
+    })
   .catch(error => console.log('error', error))
   .finally(loading.value = false);
 }
-
 
 // **Using LocalStorage
 async function addToCart(id){
