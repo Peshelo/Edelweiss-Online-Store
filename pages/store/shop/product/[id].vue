@@ -123,7 +123,7 @@
             </div>
             <div id="amount" class="w-full flex flex-row gap-x-5 my-2 items-center">
                 <div class="bg-gray-200 font-bold w-fit rounded-[400px]">
-                    <button class="p-5" @click="amount <= 0 ? amount : amount--">-</button>
+                    <button class="p-5" @click="amount <= 1 ? amount : amount--">-</button>
                     <input type="text" class="bg-transparent w-[60px] text-center text-lg" :value="`${amount}`">
                     <button class="p-5" @click="amount++">+</button>
                 </div>
@@ -172,13 +172,13 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-await fetch(`http://localhost:8080/cart/create?productVariantId=${id}&quantity=1`, requestOptions)
+await fetch(`http://localhost:8080/cart/create?productVariantId=${id}&quantity=${amount.value}`, requestOptions)
   .then(response => response.text())
   .then(result => {
     cartId.value = result
-    if(result.ok){
+    alert("New item added to cart")
         localStorage.setItem('cartId',cartId.value)}
-    })
+  )
   .catch(error => console.log('error', error))
   .finally(loading.value = false);
 }
@@ -198,8 +198,8 @@ var requestOptions = {
     if(storedCartId == undefined || null){
         createNewCart(id)
     }else{
-        console.log("Add existing")
-        await fetch(`http://localhost:8080/cart/add/${storedCartId}?variantId=${id}&quantity=1`, requestOptions)
+        alert("Cart Updated")
+        await fetch(`http://localhost:8080/cart/add/${storedCartId}?variantId=${id}&quantity=${amount.value}`, requestOptions)
   .then(response => response.json())
   .then(data=>console.log(data))
   .catch(error => console.log('error', error))
@@ -209,5 +209,5 @@ var requestOptions = {
 }
  
 // }
-const amount = ref(0);
+const amount = ref(1);
 </script>

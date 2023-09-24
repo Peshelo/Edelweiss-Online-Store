@@ -6,7 +6,7 @@
         <h3 class="mb-5 max-md:text-sm max-md:mb-2">Result for - {{ productName || currentCategory }}</h3>
         <div class="my-3 flex flex-row gap-x-2">
             <input class="bg-gray-200 p-2 rounded-md" @keyup="searchByName(productName)" type="search" placeholder="Search..." v-model="productName">
-            <select @change="searchByCategory(currentCategory)" v-model="currentCategory" class="p-2 bg-gray-200 border rounded-md">
+            <select v-if="!pendingCategories && categories && categories.length < 1" @change="searchByCategory(currentCategory)" v-model="currentCategory" class="p-2 bg-gray-200 border rounded-md">
             <option selected disabled>Select Category</option>
             <option value="All">All</option>
             <option v-for="category in categories" :key="category.id" :value="category.categoryName">{{ category.categoryName }}</option>
@@ -16,7 +16,7 @@
             <p>Loading...</p>
         </div>
         <p v-else-if="error" class="text-red-400 flex flex-col justify-center items-center">Error: Failed to fetch data<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
-        <p v-else-if="products.content < 1" class="text-red-400 flex flex-col justify-center items-center">No items found!<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
+        <p v-else-if="products && products.content && products.content.length < 1" class="text-red-400 flex flex-col justify-center items-center">No items found!<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
 
         <div v-else id="productsList" class="grid grid-cols-4 gap-8 max-md:gap-2 max-md:grid-cols-2 max-lg:grid-cols-4">
                     <LazyStoreProductCard v-for="(product,index) in filtered" :key="product.productId" :productDetails="product"/>

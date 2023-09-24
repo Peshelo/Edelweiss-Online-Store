@@ -101,7 +101,10 @@ function Login() {
   var requestOptions = {
     method: "POST",
     headers: myHeaders,
-    body: raw,
+    body: {
+      email:"ruramai@gmail.com",
+      password:"12345"
+    },
     redirect: "follow",
   };
   if (!password || !password) {

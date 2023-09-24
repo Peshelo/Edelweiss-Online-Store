@@ -35,7 +35,7 @@
           <div class="bg-gray-200 rounded-md drop-shadow-md animate-pulse w-full h-[300px] rounded-md"></div>
         </div>
         <p v-else-if="error" class="text-red-400 flex flex-col justify-center items-center">Error: Failed to fetch data<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
-        <p v-else-if="products.content < 1" class="text-red-400 flex flex-col justify-center items-center">No items found!<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
+        <p v-else-if="products && products.content && products.content.length < 1" class="text-red-400 flex flex-col justify-center items-center">No items found!<button @click="refresh" class="bg-gray-300 border border-gray-500 p-2 rounded-2xl text-gray-500 text-sm">Refresh</button></p>
         <div id="productsList" class="grid grid-cols-4 gap-8 max-md:gap-2 max-md:grid-cols-2 max-lg:grid-cols-4">
                      <LazyStoreProductCard v-for="(product,index) in products.content" :key="product.productId" :productDetails="product"/>
         </div>
@@ -76,7 +76,6 @@
 
 <script setup>
 import StoreMainLayout from "@/layouts/StoreMainLayout.vue";
-
 const {data: products,pending,error,refresh} = await useLazyFetch('http://localhost:8080/products?page=0&pageSize=5')
 console.log(products.value)
 </script>

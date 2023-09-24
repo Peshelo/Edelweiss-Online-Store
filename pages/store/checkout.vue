@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="waiting" class="fixed z-50 w-screen h-screen top-0 left-0 flex flex-col  items-center backdrop-blur-sm">
+      <div class="p-4 animate-bounce my-10 bg-white border-4 rounded-md border-blue-600">Proceeding to payment...</div>
+    </div>
     <div
       class="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32"
     >
@@ -54,6 +57,7 @@
             <li class="flex items-center space-x-3 text-left sm:space-x-4">
               <a
                 class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-white ring ring-gray-600 ring-offset-2"
+                :class="orderDone ? 'bg-emerald-200 text-xs font-semibold text-emerald-700' : ''"
                 href="#"
                 >2</a
               >
@@ -123,6 +127,7 @@
               id="radio_1"
               type="radio"
               name="radio"
+              @change="shipping = false"
               checked
             />
             <span
@@ -148,6 +153,7 @@
           <div class="relative">
             <input
               class="peer hidden"
+              @change="shipping = true"
               id="radio_2"
               type="radio"
               name="radio"
@@ -320,20 +326,20 @@
           <div class="mt-6 border-t border-b py-2">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Subtotal</p>
-              <p class="font-semibold text-gray-900">$399.00</p>
+              <p class="font-semibold text-gray-900">{{ totalPrice.toLocaleString("en-US", {style:"currency", currency:"USD"})  }}</p>
             </div>
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-gray-900">Shipping</p>
-              <p class="font-semibold text-gray-900">$8.00</p>
+              <p class="font-semibold text-gray-900">${{ shipping ? '50.00' : '0.00' }}</p>
             </div>
           </div>
           <div class="mt-6 flex items-center justify-between">
             <p class="text-sm font-medium text-gray-900">Total</p>
-            <p class="text-2xl font-semibold text-gray-900">$408.00</p>
+            <p class="text-2xl font-semibold text-gray-900">{{ shipping ? (totalPrice + 50).toLocaleString("en-US", {style:"currency", currency:"USD"}) : totalPrice.toLocaleString("en-US", {style:"currency", currency:"USD"}) }}</p>
           </div>
         </div>
-        <button @click="checkout()" :disabled="!cart || cart.length < 1" :class="!cart || cart.length < 1 ? 'bg-gray-700' : 'bg-black'"
-          class="mt-4 mb-8 w-full rounded-md bg-gray-900 py-3 font-medium text-lg text-white"
+        <button @click="checkout()" :disabled="!cart || cart.length < 1" :class="!cart || cart.length < 1 || loading  ? 'bg-gray-700' : 'bg-black'"
+          class="mt-4 mb-8 w-full rounded-md bg-gray-900 py-3 font-medium text-lg text-white" 
         >
           {{loading ?'Processing Order':'Place Order'}}
         </button>
@@ -342,6 +348,7 @@
   </div>
 </template>
 <script setup>
+const router = useRouter();
 let email = ref('')
 let lastName = ref('')
 let firstName = ref('')
@@ -353,6 +360,11 @@ let postalCode =ref('')
 let cartId = ref('')
 let cart = ref([]);
 let loading = ref(false)
+let shipping =ref(false)
+let orderDone = ref(false)
+let waiting = ref(false);
+const totalPrice = ref(0)
+
 
 async function fetchCart(){
   cartId.value = localStorage.getItem('cartId')
@@ -361,8 +373,16 @@ async function fetchCart(){
     .then(response=>response.json())
     .then(data=>{
         cart.value = data.lineItems
+        if(cart && cart.value && cart.value.length>0){
+          calculateSummary();
+        }
     })
     .finally(loading.value = false);
+}
+function calculateSummary(){
+cart.value.forEach(item=>{
+    totalPrice.value += item.totalPrice}
+)
 }
 fetchCart();
 
@@ -413,12 +433,16 @@ var requestOptions = {
 await fetch("http://localhost:8080/orders/create", requestOptions)
   .then(response => response.json())
   .then(result => {
-    if(result.ok){
-      alert("New Order Created")
-      localStorage.removeItem('cartId')
+    if(result.status && result.status > 300){
+      alert("Error: Cannot Creat Order")
     }else{
-      alert("Failed to create order")
+      console.log(result)
+      orderDone.value = true
+      localStorage.removeItem('cartId')
+      alert("New Order Created! Proceeding to Payment...")
+      handlePayment(result.id);
     }
+     
   })
   .catch(error => console.log('error', error))
   .finally(()=>{
@@ -432,6 +456,36 @@ await fetch("http://localhost:8080/orders/create", requestOptions)
   })
 }
 
+
+//Payments 
+async function handlePayment(orderId){
+  waiting.value = true;
+  var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+var raw = JSON.stringify({
+  "price": totalPrice.value,
+  "currency": "USD",
+  "method": "PayPal",
+  "intent": "SALE",
+  "orderId": orderId
+});
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: raw,
+  redirect: 'follow'
+};
+
+await fetch("http://localhost:8080/paypal/initiate/payment", requestOptions)
+  .then(response => response.text())
+  .then(result => navigateTo(result, {
+  external: true
+}))
+  .catch(error => console.log('error', error))
+  .finally(()=>waiting.value=false);
+}
 // cart.value = JSON.parse(localStorage.getItem('cart')) || [];
 // console.log(cart.value)
 

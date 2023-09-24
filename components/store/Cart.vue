@@ -11,9 +11,9 @@
                 <button @click="removeItem(item.id)" class="text-red-400 hover:text-red-500 duration-150"><Icon name="material-symbols:delete-outline" size="17"/></button>
             </li>
         </ul>
-        <div class="absolute max-md:bottom-16 flex flex-col gap-y-2 bg-white w-[400px] max-md:w-[320px] justify-center border-t py-2 bottom-2">
-            <label class="w-full flex flex-row justify-between items-center"><label>Total Items:</label> <label>25</label></label>
-            <label class="w-full flex flex-row justify-between items-center"><label>Total Amount</label> <label>$25</label></label>
+        <div class="absolute max-md:bottom-16  flex flex-col gap-y-2 bg-white w-[400px] max-md:w-fit justify-center border-t py-2 bottom-2">
+            <label class="w-full flex flex-row justify-between items-center"><label>Total Items:</label> <label>{{ cart.length }}</label></label>
+            <label class="w-full flex flex-row justify-between items-center"><label>Total Amount</label> <label>{{ totalPrice.toLocaleString("en-US", {style:"currency", currency:"USD"}) }}</label></label>
 
             <button @click="$router.push('/store/checkout/')" class="p-4 rounded-lg bg-black text-white text-center w-full text-xl font-semibold flex flex-row gap-x-2 justify-center items-center"><Icon name="ic:twotone-shopping-basket" size="30"/>Proceed To Checkout</button>
         </div>
@@ -23,6 +23,8 @@
 <script setup>
 
 let cart = ref([]);
+let totalPrice = ref(0);
+
 let loading = ref(false)
 async function fetchCart(){
     loading.value = true
@@ -31,10 +33,24 @@ async function fetchCart(){
     .then(response=>response.json())
     .then(data=>{
         cart.value = data.lineItems
+        console.log(cart.value)
+        calculateSummary();
     })
     .finally(loading.value = false);
 }
+
+
+function calculateSummary(){
+cart.value.forEach(item=>{
+    totalPrice.value += item.totalPrice
+console.log(totalPrice.value)}
+)
+}
 fetchCart();
+
+
+
+
 
 // cart.value = JSON.parse(localStorage.getItem('cart')) || [];
 console.log(cart.value)
