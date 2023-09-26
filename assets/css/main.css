@@ -1,37 +1,3 @@
-body,html{
-    @apply overflow-x-hidden
-}
 h1,p,label{
     font-family: Montserrat;
-}
-h1{
-    @apply text-xl font-extrabold max-sm:text-lg
-}
-h2{
-    @apply text-2xl font-semibold
-}
-label{
-    @apply max-sm:text-sm
-}
-ul{
-    font-family: Montserrat;
-}
-a:hover{
-    @apply text-red-500 duration-300
-}
-.router-link-active{
-    /* @apply text-red-500 */
-}
-h3{
-    @apply text-lg font-semibold
-}
-th{
-    @apply bg-blue-50 p-2 font-medium text-sm border border-gray-200;
-}
-td{
-    @apply border border-gray-200 p-2 text-xs
-}
-
-.router-link-active{
-    @apply text-red-600
 }
