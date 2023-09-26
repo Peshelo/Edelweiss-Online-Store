@@ -410,7 +410,7 @@ var raw = JSON.stringify({
     country: country.value
   },
   paymentMethod: "CREDIT_CARD",
-  paymentStatus: "PAYED",
+  paymentStatus: "PENDING",
   taxInfo: {
     taxAmount: 0,
     taxDescription: "string",
