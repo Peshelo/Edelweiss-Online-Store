@@ -86,6 +86,9 @@
 
 <script setup>
    import AdminSidebar from '~/layouts/adminSidebar.vue';
+//    definePageMeta({
+//     middleware: "auth"
+//    });
 </script>
 
 <style lang="scss" scoped>
