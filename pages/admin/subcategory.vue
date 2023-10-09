@@ -204,7 +204,7 @@ export default {
   methods: {
     async getSubCategoryByID(ID){
             this.loading = true;
-      const URL = `http://localhost:8080/subcategories/${ID}`;
+      const URL = config.public.baseURL+`/subcategories/${ID}`;
       // const token = localStorage.token;
       await axios.get(URL,{
         headers: {'Content-Type': 'application/json',
@@ -234,7 +234,7 @@ export default {
               if (Object.keys(this.errors).length === 0) {
           // make API call or submit form data here
           try{
-          await axios.put(`http://localhost:8080/subcategories/update/${subcatID}`,{
+          await axios.put(config.public.baseURL+`/subcategories/update/${subcatID}`,{
             categoryId: this.subcategoryUpd.categoryId,
             subCategoryName: this.subcategoryUpd.subCategoryName,
             subCategoryDescription: this.subcategoryUpd.subCategoryDescription
@@ -256,7 +256,7 @@ export default {
       },
     async getAllSubCategories(){
     this.loading = true;
-    const URL = `http://localhost:8080/subcategories`;
+    const URL = config.public.baseURL+`/subcategories`;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
           // Authorization : 'Bearer ' + token,
@@ -284,7 +284,7 @@ export default {
             if (Object.keys(this.errors).length === 0) {
         // make API call or submit form data here
         try{
-        await axios.post('http://localhost:8080/subcategories/create',{
+        await axios.post(config.public.baseURL+'/subcategories/create',{
           categoryId: this.sub.categoryId,
           subCategoryName: this.sub.subCategoryName,
           subCategoryDescription: this.sub.subCategoryDescription
@@ -311,7 +311,7 @@ export default {
       console.log(this.ID)
       if(_option == 'Yes'){
         try{
-        await axios.delete('http://localhost:8080/subcategories/delete/'+ this.ID,{
+        await axios.delete(config.public.baseURL+'/subcategories/delete/'+ this.ID,{
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
           }).then((response) =>{

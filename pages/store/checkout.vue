@@ -348,7 +348,7 @@
   </div>
 </template>
 <script setup>
-const router = useRouter();
+    const config = useRuntimeConfig();const router = useRouter();
 let email = ref('')
 let lastName = ref('')
 let firstName = ref('')
@@ -369,7 +369,7 @@ const totalPrice = ref(0)
 async function fetchCart(){
   cartId.value = localStorage.getItem('cartId')
     loading.value = true
-    await fetch(`http://localhost:8080/cart/${cartId.value}`)
+    await fetch(config.public.baseURL+`/cart/${cartId.value}`)
     .then(response=>response.json())
     .then(data=>{
         cart.value = data.lineItems
@@ -430,7 +430,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-await fetch("http://localhost:8080/orders/create", requestOptions)
+await fetch(config.public.baseURL+"/orders/create", requestOptions)
   .then(response => response.json())
   .then(result => {
     if(result.status && result.status > 300){
@@ -478,7 +478,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-await fetch("http://localhost:8080/paypal/initiate/payment", requestOptions)
+await fetch(config.public.baseURL+"/paypal/initiate/payment", requestOptions)
   .then(response => response.text())
   .then(result => navigateTo(result, {
   external: true

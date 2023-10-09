@@ -319,7 +319,7 @@ export default {
     this.loading = true;
     Number.parseInt(pageNumber)
       pageNumber -=1;
-    const URL = `http://localhost:8080/products?page=${pageNumber}&pageSize=10`;
+    const URL = config.public.baseURL+`/products?page=${pageNumber}&pageSize=10`;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
           // Authorization : 'Bearer ' + token,
@@ -352,7 +352,7 @@ export default {
         // make API call or submit form data here
         try{
           const local = localStorage.local
-        await axios.post('http://localhost:8080/organisations',{
+        await axios.post(config.public.baseURL+'/organisations',{
           'preachingPoint': local,  
           'organisation': this.org.organisation,
         },{
@@ -376,7 +376,7 @@ export default {
       console.log(this.ID)
       if(_option == 'Yes'){
         try{
-        await axios.delete('http://localhost:8080/products/delete/'+ this.ID,{
+        await axios.delete(config.public.baseURL+'/products/delete/'+ this.ID,{
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
           }).then((response) =>{
@@ -399,7 +399,7 @@ export default {
     },
     async getAllProductCategories(){
     this.loading = true;
-    const URL = `http://localhost:8080/categories/all`;
+    const URL = config.public.baseURL+`/categories/all`;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
           // Authorization : 'Bearer ' + token,

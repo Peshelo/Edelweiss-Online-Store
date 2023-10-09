@@ -645,5 +645,5 @@
 
 </template>
 <script setup>
-import StoreMainLayout from '@/layouts/StoreMainLayout.vue';
+    const config = useRuntimeConfig();import StoreMainLayout from '@/layouts/StoreMainLayout.vue';
 </script>

@@ -85,7 +85,7 @@
 </template>
 
 <script setup>
-   import AdminSidebar from '~/layouts/adminSidebar.vue';
+    const config = useRuntimeConfig();   import AdminSidebar from '~/layouts/adminSidebar.vue';
 </script>
 
 <style lang="scss" scoped>

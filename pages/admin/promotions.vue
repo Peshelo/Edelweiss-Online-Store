@@ -279,7 +279,7 @@ methods: {
   this.loading = true;
   // Number.parseInt(pageNumber)
   //   pageNumber -=1;
-  const URL = `http://localhost:8080/promotions/all`;
+  const URL = config.public.baseURL+`/promotions/all`;
   await axios.get(URL,{
     headers: {'Content-Type': 'application/json',
         // Authorization : 'Bearer ' + token,
@@ -297,7 +297,7 @@ methods: {
   },
   async getPromotionByID(ID){
           this.loading = true;
-    const URL = `http://localhost:8080/promotions/${ID}`;
+    const URL = config.public.baseURL+`/promotions/${ID}`;
     // const token = localStorage.token;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
@@ -323,7 +323,7 @@ methods: {
       // make API call or submit form data here
       try{
         
-      await axios.post(`http://localhost:8080/promotions/create`,{
+      await axios.post(config.public.baseURL+`/promotions/create`,{
         promoDescription: this.promo.promotionDescription,
         promoPrice: this.promo.promoPrice,
         promoDeadline: this.promo.promoDeadline + ":00",
@@ -350,7 +350,7 @@ methods: {
             if (Object.keys(this.errors).length === 0) {
         // make API call or submit form data here
         try{
-        await axios.put(`http://localhost:8080/promotions/update/${promoID}`,{
+        await axios.put(config.public.baseURL+`/promotions/update/${promoID}`,{
           promoDescription: this.promoUpdate.promoDescription,
           promoPrice: this.promoUpdate.promoPrice,
           promoDeadline: this.promoUpdate.promoDeadline,
@@ -374,7 +374,7 @@ methods: {
     console.log(this.ID)
     if(_option == 'Yes'){
       try{
-      await axios.delete('http://localhost:8080/product-variants/delete/'+ this.ID,{
+      await axios.delete(config.public.baseURL+'/product-variants/delete/'+ this.ID,{
           headers: {'Content-Type': 'application/json'},
           credentials: 'include'
         }).then((response) =>{
@@ -397,7 +397,7 @@ methods: {
   },
   async getAllProductCategories(){
   this.loading = true;
-  const URL = `http://localhost:8080/categories/all`;
+  const URL = config.public.baseURL+`/categories/all`;
   await axios.get(URL,{
     headers: {'Content-Type': 'application/json',
         // Authorization : 'Bearer ' + token,

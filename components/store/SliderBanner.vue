@@ -21,7 +21,7 @@
   </swiper>
 </template>
 <script setup>
-import { register } from 'swiper/element/bundle';
+    const config = useRuntimeConfig();import { register } from 'swiper/element/bundle';
 // register Swiper custom elements
 register();
 </script>

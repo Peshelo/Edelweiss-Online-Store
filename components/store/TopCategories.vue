@@ -14,7 +14,7 @@
 
 
 <script setup>
-
-const {data: categories,pending,error,refresh} = await useLazyFetch('http://localhost:8080/categories/all')
+    const config = useRuntimeConfig();
+const {data: categories,pending,error,refresh} = await useLazyFetch(config.public.baseURL+'/categories/all')
 
 </script>

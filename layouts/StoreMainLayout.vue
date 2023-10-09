@@ -203,7 +203,8 @@
 </template>
 
 <script setup>
-let cartItemCount = ref(0);
+    const config = useRuntimeConfig();
+    let cartItemCount = ref(0);
 const searchParam = ref("");
 const showAccount = ref(false)
 const showSearch = ref(false);
@@ -215,13 +216,14 @@ let showLogin = ref(true)
 let filtered = ref('')
 // cartItemCount = JSON.parse(localStorage.getItem('cart')).length
 
-const {data: categories,pending,error} = await useLazyFetch('http://localhost:8080/categories/all')
+const {data: categories,pending,error} = await useLazyFetch(config.public.baseURL+'/categories/all')
 
-const {data: products,pending:pendingProducts,error:errorProducts} = await useLazyFetch('http://localhost:8080/products?page=0&pageSize=20')
-
+const {data: products,pending:pendingProducts,error:errorProducts} = await useLazyFetch(config.public.baseURL+'/products?page=0&pageSize=20')
+console.log(products)
 async function fetchSubCategory(id){
-  const {data: subCategories,pending:subCategoriesPending,error: subCategoryLoading} = await useLazyFetch('http://localhost:8080/categories/all')
+  const {data: subCategories,pending:subCategoriesPending,error: subCategoryLoading} = await useLazyFetch(config.public.baseURL+'/categories/all')
 }
+
 filtered.value = products.value.content
 
 function searchProduct(){

@@ -75,7 +75,8 @@
 </template>
 
 <script setup>
-import StoreMainLayout from "@/layouts/StoreMainLayout.vue";
-const {data: products,pending,error,refresh} = await useLazyFetch('http://localhost:8080/products?page=0&pageSize=5')
+    const config = useRuntimeConfig();
+    import StoreMainLayout from "@/layouts/StoreMainLayout.vue";
+const {data: products,pending,error,refresh} = await useLazyFetch(config.public.baseURL+'/products?page=0&pageSize=5')
 console.log(products.value)
 </script>

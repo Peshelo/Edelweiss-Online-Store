@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-
+    const config = useRuntimeConfig();
 let cart = ref([]);
 let totalPrice = ref(0);
 
@@ -29,7 +29,7 @@ let loading = ref(false)
 async function fetchCart(){
     loading.value = true
     const cartId = localStorage.getItem('cartId')
-    await fetch(`http://localhost:8080/cart/${cartId}`)
+    await fetch(config.public.baseURL+`/cart/${cartId}`)
     .then(response=>response.json())
     .then(data=>{
         cart.value = data.lineItems

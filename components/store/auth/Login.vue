@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-let email = ref("");
+    const config = useRuntimeConfig();let email = ref("");
 let password = ref("");
 function Login() {
   var myHeaders = new Headers();
@@ -111,7 +111,7 @@ function Login() {
     alert("Fill in all details");
     return;
   }
-  fetch("http://localhost:8080/customers/login", requestOptions)
+  fetch(config.public.baseURL+"/customers/login", requestOptions)
     .then((response) => response.json())
     .then((result) => console.log(result))
     .catch((error) => console.log("error", error));

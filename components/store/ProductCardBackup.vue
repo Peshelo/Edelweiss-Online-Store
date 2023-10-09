@@ -53,7 +53,8 @@
 
 
 <script setup>
-const {product} = defineProps(['productDetails'])
+    const config = useRuntimeConfig();
+    const {product} = defineProps(['productDetails'])
 const isLiked = ref(false)
 const id =ref(1)
 </script>

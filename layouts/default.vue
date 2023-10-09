@@ -5,4 +5,4 @@
     </template>
 
     <script setup>
-</script>
+    const config = useRuntimeConfig();</script>

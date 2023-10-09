@@ -106,7 +106,7 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['register'])
+    const config = useRuntimeConfig();const emit = defineEmits(['register'])
 let Firstname =ref('')
 let Lastname =ref('')
 let Password =ref('')
@@ -134,7 +134,7 @@ var requestOptions = {
 if(!Firstname.value || !Lastname.value || !Email.value || !Password.value){
   alert("Error")
 }else{
-    fetch("http://localhost:8080/customers/create", requestOptions)
+    fetch(config.public.baseURL+"/customers/create", requestOptions)
   .then(response => response.json())
   .then(result => alert("Sucessfully: You're now register"))
   .catch(error => console.log('error', error))

@@ -29,12 +29,13 @@
 </template>
 
 <script setup>
-import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
+    const config = useRuntimeConfig();
+    import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
 import ShopLayout from '@/layouts/ShopLayout.vue'
 
     let currentCategory = ref('')
-   const {data: products,pending,error,refresh} = await useLazyFetch('http://localhost:8080/products?page=0&pageSize=20')
-   const {data: categories,pending: pendingCategories} = await useLazyFetch('http://localhost:8080/categories/all')
+   const {data: products,pending,error,refresh} = await useLazyFetch(config.public.baseURL+'/products?page=0&pageSize=20')
+   const {data: categories,pending: pendingCategories} = await useLazyFetch(config.public.baseURL+'/categories/all')
 let productName = ref('')
    let filtered = ref('')
    filtered.value = products.value.content;

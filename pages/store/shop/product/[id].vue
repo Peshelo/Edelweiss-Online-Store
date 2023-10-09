@@ -144,7 +144,7 @@
 </template>
 
 <script setup>
-import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
+    const config = useRuntimeConfig();import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
 import ShopLayout from '@/layouts/ShopLayout.vue'
 
 const showVariants = ref(false)
@@ -152,7 +152,7 @@ const loading = ref(false)
 const cartId = ref('')
 
 const {id} = useRoute().params
-const url = `http://localhost:8080/products/${id}`
+const url = config.public.baseURL+`/products/${id}`
 const {data: productDetails,pending,error,refresh} = await useLazyFetch(url,{key:id})
 
 function goBack() {
@@ -172,7 +172,7 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-await fetch(`http://localhost:8080/cart/create?productVariantId=${id}&quantity=${amount.value}`, requestOptions)
+await fetch(config.public.baseURL+`/cart/create?productVariantId=${id}&quantity=${amount.value}`, requestOptions)
   .then(response => response.text())
   .then(result => {
     cartId.value = result
@@ -199,7 +199,7 @@ var requestOptions = {
         createNewCart(id)
     }else{
         alert("Cart Updated")
-        await fetch(`http://localhost:8080/cart/add/${storedCartId}?variantId=${id}&quantity=${amount.value}`, requestOptions)
+        await fetch(config.public.baseURL+`/cart/add/${storedCartId}?variantId=${id}&quantity=${amount.value}`, requestOptions)
   .then(response => response.json())
   .then(data=>console.log(data))
   .catch(error => console.log('error', error))

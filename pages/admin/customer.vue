@@ -139,7 +139,7 @@ export default {
     },
     async getCustomerByID(ID){
             this.loading = true;
-      const URL = `http://localhost:8080/categories/{categoryId}?categoryId=${ID}`;
+      const URL = config.public.baseURL+`/categories/{categoryId}?categoryId=${ID}`;
       // const token = localStorage.token;
       await axios.get(URL,{
         headers: {'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ export default {
       },
     async getAllCustomers(){
     this.loading = true;
-    const URL = `http://localhost:8080/customers`;
+    const URL = config.public.baseURL+`/customers`;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
           // Authorization : 'Bearer ' + token,
@@ -180,7 +180,7 @@ export default {
     async handleOption (_option) {
       if(_option = 'yes'){
         try{
-        await axios.delete('http://localhost:8080/customers/delete',this.ID,{
+        await axios.delete(config.public.baseURL+'/customers/delete',this.ID,{
             headers: {'Content-Type': 'application/json'},
             credentials: 'include'
           }).then((response) =>{

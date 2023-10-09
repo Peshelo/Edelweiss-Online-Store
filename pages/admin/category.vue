@@ -193,7 +193,7 @@ export default {
     },
     async getCategoryByID(ID){
             this.loading = true;
-      const URL = `http://localhost:8080/categories/${ID}`;
+      const URL = config.public.baseURL+`/categories/${ID}`;
       // const token = localStorage.token;
       await axios.get(URL,{
         headers: {'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ export default {
       },
     async getAllCategories(){
     this.loading = true;
-    const URL = `http://localhost:8080/categories/all`;
+    const URL = config.public.baseURL+`/categories/all`;
     await axios.get(URL,{
       headers: {'Content-Type': 'application/json',
           // Authorization : 'Bearer ' + token,
@@ -242,7 +242,7 @@ export default {
             if (Object.keys(this.errors).length === 0) {
         // make API call or submit form data here
         try{
-        await axios.post('http://localhost:8080/categories/create',{
+        await axios.post(config.public.baseURL+'/categories/create',{
           categoryName: this.category.categoryName,
           categoryDescription: this.category.categoryDescription
         },{
@@ -275,7 +275,7 @@ export default {
               if (Object.keys(this.errors).length === 0) {
           // make API call or submit form data here
           try{
-          await axios.put(`http://localhost:8080/categories/update/${catID}`,{
+          await axios.put(config.public.baseURL+`/categories/update/${catID}`,{
             categoryName: this.categoryUpd.categoryName,
             categoryDescription: this.categoryUpd.categoryDescription
           },{

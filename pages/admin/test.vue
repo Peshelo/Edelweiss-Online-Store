@@ -103,7 +103,7 @@ export default {
       // Implement image upload and API request logic here
       console.log("Form submitted:", this.formData);
       try{
-        await axios.post('http://localhost:8080/products/create', this.formData,{
+        await axios.post(config.public.baseURL+'/products/create', this.formData,{
             headers: {'Content-Type': 'Applications/json'},
             credentials: 'include'
           }).then((response) =>{
@@ -124,7 +124,7 @@ export default {
             if (Object.keys(this.errors).length === 0) {
         // make API call or submit form data here
         try{
-        await axios.post('http://localhost:8080/products/create',{
+        await axios.post(config.public.baseURL+'/products/create',{
           
         },{
             headers: {'Content-Type': 'application/json'},

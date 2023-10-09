@@ -110,6 +110,6 @@
 
 
 <script setup>
-const year = ref('2023')
-const {data,pending,error} = useLazyFetch('http://localhost:8080/categories/all')
+    const config = useRuntimeConfig();const year = ref('2023')
+const {data,pending,error} = useLazyFetch(config.public.baseURL+'/categories/all')
 </script>

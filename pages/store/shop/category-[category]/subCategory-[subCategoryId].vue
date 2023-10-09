@@ -29,7 +29,8 @@
 </template>
 
 <script setup>
-import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
+    const config = useRuntimeConfig();
+    import StoreMainLayout from '@/layouts/StoreMainLayout.vue'
 import ShopLayout from '@/layouts/ShopLayout.vue'
 
 
@@ -39,16 +40,16 @@ import ShopLayout from '@/layouts/ShopLayout.vue'
     const paramSubCategory = route.params.subCategoryId;
     let url = ref('')
     // console.log(route.params.category)
-    url.value = 'http://localhost:8080/products?page=0&pageSize=20'
+    url.value = config.public.baseURL+'/products?page=0&pageSize=20'
 
         if(paramCategory == "All"){
             if(paramSubCategory == "All"){
-                url.value = 'http://localhost:8080/products?page=0&pageSize=20'
+                url.value = config.public.baseURL+'/products?page=0&pageSize=20'
             }else{
-                url.value = `http://localhost:8080/products/subCategory/${paramSubCategory}`
+                url.value = config.public.baseURL+`/products/subCategory/${paramSubCategory}`
             }
         }else{
-            url.value = `http://localhost:8080/products/category/${paramCategory}`
+            url.value = config.public.baseURL+`/products/category/${paramCategory}`
         }
         const {data: products,pending,error,refresh} = await useLazyFetch(url.value)
         console.log(products.value)
@@ -59,7 +60,7 @@ import ShopLayout from '@/layouts/ShopLayout.vue'
     
   
 
-   const {data: categories,pending: pendingCategories} = await useLazyFetch('http://localhost:8080/categories/all')
+   const {data: categories,pending: pendingCategories} = await useLazyFetch(config.public.baseURL+'/categories/all')
 let productName = ref('')
    let filtered = ref('')
    if(paramCategory){
