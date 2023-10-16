@@ -137,11 +137,7 @@
               class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
               for="radio_1"
             >
-              <img
-                class="w-14 object-contain"
-                src="/images/naorrAeygcJzX0SyNI4Y0.png"
-                alt=""
-              />
+            
               <div class="ml-5">
                 <span class="mt-2 font-semibold">Physical Collection Delivery</span>
                 <p class="text-slate-500 text-sm leading-6">
@@ -166,7 +162,7 @@
               class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4"
               for="radio_2"
             >
-              <img
+           <img
                 class="w-14 object-contain"
                 src="/images/oG8xsl3xsOkwkMsrLGKM4.png"
                 alt=""
